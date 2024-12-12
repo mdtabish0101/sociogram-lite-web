@@ -1,9 +1,27 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 const Loginn = () => {
-  return (
-    <div className='bg-primary border-r-2'>Loginn</div>
-  )
+    return (
+        <div className='h-screen flex flex-col justify-center items-center '>
+            <div className='p-3 mb-8'>
+        <h1 className='text-5xl font-semibold text-secondary font-sociogram italic'>Sociogram</h1>
+      </div>
+            <div className='w-96 flex flex-col space-y-5 shadow-xl p-6'>
+                <h1 className='text-4xl text-tertiary font-semibold'>Welcome Back</h1>
+                <p className='text-tertiary text-opacity-75 text-sm font-thin mt-3'>Please enter your details</p>
+                {/* <hr /> */}
+                <input type="email" placeholder='email' className='h-12 border border-gray-300 focus:border-gray-500 pl-4 rounded-md focus:outline-none' />
+                <input type="password" placeholder='password' className='h-12 border border-gray-300 focus:border-gray-500 pl-4 rounded-md focus:outline-none' />
+                <div className='flex justify-center'>
+                    <button className='bg-secondary text-primary h-12 rounded-md w-full hover:bg-opacity-90 transition-all'>Login</button>
+                </div>
+                <div className='flex flex-row justify-center items-center text-tertiary'>
+                    <p className='px-1 font-thin text-[15px]'>dont have an account?</p>
+                    <Link to='/register' className='text-secondary underline font-thin text-[16px]'>Register</Link>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default Loginn
