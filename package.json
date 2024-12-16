@@ -10,12 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.4.0",
+    "@reduxjs/toolkit": "^2.5.0",
     "firebase": "^11.0.2",
     "nodemon": "^3.1.7",
+    "postcss-cli": "^11.0.0",
+    "postcss-loader": "^8.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
+    "react-toastify": "^10.0.6",
     "redux": "^5.0.1"
   },
   "devDependencies": {

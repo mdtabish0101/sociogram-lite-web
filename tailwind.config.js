@@ -5,6 +5,15 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        spinRing: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        spinRing: 'spinRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite',
+      },
       colors: {
         primary: '#FFFEFE',
         secondary: '#3C6E71',
@@ -30,6 +39,7 @@ export default {
          'sans-serif'
       ],
     },
+    
     
     
   },

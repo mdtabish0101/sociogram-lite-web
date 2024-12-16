@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { auth } from '../config/firebase-config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../config/firebase-config';
+import { setDoc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
+import Loader from '../components/Loader';
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,30 +14,45 @@ const Register = () => {
   const [error, setError] = useState("");
 
 
+
   const register = (e) => {
     if (password !== confirmPassword) {
       setError('Passwords do not match!');
       return;
     }
-    e.preventDefault(); // Prevents the default form submission
+    e.preventDefault();
+    
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user; // Access the user object
-        console.log("User created:", user);
-        setError("")
+        const user = userCredential.user;
+        const userData = {
+          email: user.email,
+          profilePicUrl: '',
+          bio: 'Your Bio here',
+        }
+        setDoc(doc(db, "UserData", user.uid), userData)
+          .then(() => {
+            console.log("User created:", user);
+            setError("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+          })
+          .catch((error) => {
+            setError("Error saving user data: " + error.message);
+          });
       })
       .catch((error) => {
         setError(error.message);
-        console.error("Error creating account:", error.message);
+        console.error("Error creating account" + error.message);
 
-      });
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+      })
   }
 
   return (
+
     <div className='h-screen flex flex-col justify-center items-center'>
+      <Loader/>
       <div className='p-3 mb-8'>
         <h1 className='text-5xl font-semibold text-secondary font-sociogram italic'>Sociogram</h1>
       </div>
@@ -62,10 +81,11 @@ const Register = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)} />
         <div className='flex flex-col justify-center items-center'>
-          {error && <p className='text-red-500 text-sm mb-1'>{error}</p>}
+          
           <button
-            className='bg-secondary text-primary h-12 rounded-md w-full hover:bg-opacity-90 transition-all'
-            onClick={register}>Register</button>
+            className={`bg-secondary text-primary h-12 rounded-md w-full hover:bg-opacity-90 transition-all`}
+            onClick={register}
+          >Register</button>
         </div>
         <div className='flex flex-row justify-center items-center text-tertiary'>
           <p className='px-1 font-thin text-[15px]'>Have an account?</p>
