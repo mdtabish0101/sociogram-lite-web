@@ -4,21 +4,14 @@ const initialState = {
 
 
 
-const LoaderReducer = (state = initialState, action) => {
+export const LoaderReducer = (state = initialState, action) => {
     switch(action.type){
-        case 'showLoading' : return {
+        case 'SET_LOADING' : return {
             ...state,
-            loading : true
+            loading : action.payload
         }
-
-        case 'hideLoading' : return {
-            ...state,
-            loading : false
-        }
-
-        default : return
+        default : return state;
     }
 }
 
 
-export {LoaderReducer}

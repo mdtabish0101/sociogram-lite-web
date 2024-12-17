@@ -3,5 +3,7 @@ import { LoaderReducer } from "../redux/LoaderReducer";
 
 
 export const store = configureStore({
-    reducer: LoaderReducer
+    reducer:{
+        Loader: LoaderReducer
+    }
 })
